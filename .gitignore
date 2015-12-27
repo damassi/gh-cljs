@@ -2,6 +2,7 @@
 /lib/
 /node_modules/
 /target/
+.env
 *.jar
 .lein-deps-sum
 .lein-repl-history

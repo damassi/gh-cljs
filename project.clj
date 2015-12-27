@@ -16,20 +16,20 @@
                   "target"]
 
   :cljsbuild {
-    :builds [{:id "dev"
-              :source-paths ["src"]
-              :figwheel true
-              :compiler {
-                :main gh.core
-                :output-to "target/server_dev/gh.js"
-                :output-dir "target/server_dev"
-                :target :nodejs
-                :optimizations :none
-                :source-map true}}
-             {:id "prod"
-              :source-paths ["src"]
-              :compiler {
-                :output-to "server.js"
-                :output-dir "target/server_prod"
-                :target :nodejs
-                :optimizations :simple}}]})
+              :builds [{:id "dev"
+                        :source-paths ["src"]
+                        :figwheel true
+                        :compiler {
+                                   :main gh.core
+                                   :output-to "target/server_dev/gh.js"
+                                   :output-dir "target/server_dev"
+                                   :target :nodejs
+                                   :optimizations :none
+                                   :source-map true}}
+                       {:id "prod"
+                        :source-paths ["src"]
+                        :compiler {
+                                   :output-to "server.js"
+                                   :output-dir "target/server_prod"
+                                   :target :nodejs
+                                   :optimizations :simple}}]})
