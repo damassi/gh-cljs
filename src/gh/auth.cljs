@@ -1,12 +1,10 @@
 (ns gh.auth
-  (:require [cljs.nodejs :as nodejs]))
+  (:require [cljs.nodejs :as nodejs]
+            [cljs.core.async :refer [put!]]))
 
 (defonce github (nodejs/require "octonode"))
 
-(defn build-client [access-token]
+(defn build-client! [access-token ch]
   (let [client (.client github access-token)
         me (.me client)]
-    (.starred me
-      (fn [err repos]
-        (.log js/console foo)
-        (.log js/console repos)))))
+    (put! ch me)))
