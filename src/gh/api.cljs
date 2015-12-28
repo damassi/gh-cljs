@@ -6,7 +6,7 @@
       (if (nil? err)
         (let [repo-urls (mapv #(get % "full_name") (js->clj repos))]
           (success user repo-urls))
-        (.log js/console err)))))
+        (js/console.log err)))))
 
 (defn unstar! [user repo-urls]
   (when (> (count repo-urls) 0)

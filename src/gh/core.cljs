@@ -7,7 +7,7 @@
   (:require-macros [cljs.core.async.macros :refer [go]]))
 
 (nodejs/enable-util-print!)
-(nodejs/require.load "dotenv")
+(.load (nodejs/require "dotenv"))
 
 (def access-token (.. nodejs/process -env -GH_ACCESS_TOKEN))
 (def ch (chan))
