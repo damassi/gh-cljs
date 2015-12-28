@@ -16,7 +16,5 @@
         (println "Complete.")
         (recur (inc x))))))
 
-(def api [get-starred, unstar!])
-
 (defn build-api! [user]
   (get-starred user 10 unstar!))
