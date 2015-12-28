@@ -9,12 +9,14 @@
         (js/console.log err)))))
 
 (defn unstar! [user repo-urls]
-  (when (> (count repo-urls) 0)
-    (loop [x 0]
-      (.unstar user (nth repo-urls x) (fn [r] (println "Unstarred repo")))
-      (if (= (inc x) (count repo-urls))
-        (println "Complete.")
-        (recur (inc x))))))
+  (let [len (count repo-urls)]
+    (when (> len 0)
+      (loop [x 0]
+        (.unstar user (nth repo-urls x) (fn [r]
+                                          (println "Unstarred repo")))
+        (if (= (inc x) len)
+          (println "Complete.")
+          (recur (inc x)))))))
 
 (defn build-api! [user]
   (get-starred user 10 unstar!))
