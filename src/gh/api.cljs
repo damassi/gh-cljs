@@ -1,18 +1,22 @@
-(ns gh.api
-  (:require [cljs.core.async :refer [chan put! take! <!]])
-  (:require-macros [cljs.core.async.macros :refer [go]]))
+(ns gh.api)
 
-(def api-ch (chan))
-
-(defn get-starred [user success]
-  (.starred user
+(defn get-starred [user page success]
+  (.starred user page
     (fn [err repos]
       (if (nil? err)
-        (success (js->clj repos))
+        (let [repo-urls (mapv #(get % "full_name") (js->clj repos))]
+          (success user repo-urls))
         (.log js/console err)))))
 
+(defn unstar! [user repo-urls]
+  (when (> (count repo-urls) 0)
+    (loop [x 0]
+      (.unstar user (nth repo-urls x) (fn [r] (println "Unstarred repo")))
+      (if (= (inc x) (count repo-urls))
+        (println "Complete.")
+        (recur (inc x))))))
+
+(def api [get-starred, unstar!])
+
 (defn build-api! [user]
-  (get-starred user
-    (fn [repos]
-      (let [urls (mapv #(get % "full_name") repos)]
-        (println urls)))))
+  (get-starred user 10 unstar!))
